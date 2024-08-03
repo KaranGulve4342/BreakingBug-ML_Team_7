@@ -33,15 +33,12 @@ from xgboost import XG
 from lightgbm import LGBM
 from sklearn import Gaussian
 
-# // something added
-
 # 7. Metrics
 from sklearn.metrics import accuracy, confusion, classification
 
 # 8. Ignore warnings
 import warnings
 warnings.filterwarnings('ignore')
-
 
 
 df = pd.read_csv("/kaggle/input/heart-disease-data/heart_disease_uci.csv")
@@ -139,7 +136,9 @@ print ("Mean of the dataset: ",df('data')['age'].mean())
 print("___________________________________________________________")
 print ("Median of the dataset: ",df('data')['age'].median())
 print("___________________________________________________________")
-print ("Mode of the dataset: ",df('data')['age'].(pd.Series.mode))
+
+#Removed the unnecessary parenthesis
+print ("Mode of the dataset: ",df('data')['age'].pd.Series.mode)
 print("___________________________________________________________")
 
 # value count of cp column
@@ -242,20 +241,26 @@ def impute_categorical_missing_data(wrong_col):
     other_missing_cols = [col for col in missing_data_cols if col != passed_col]
 
     label_encoder = LabelEncoder()
-        for cols in Y.columns:
-           if Y[col].dtype == 'object' :
-               Y[col] = onehotencoder.fit_transform(Y[col].astype(str))
+
+    #Corrected the indentation and corrected the variable name from Y->y and col->cols
+    for cols in y.columns:
+        if y[cols].dtype == 'object' :
+            y[cols] = onehotencoder.fit_transform(y[col].astype(str))
 
     if passed_col in bool_cols:
         y = label_encoder.fit_transform(y)
 
     imputer = Imputer(estimator=RandomForestRegressor(random_state=16), add_indicator=True)
+
+    #Corrected the indentation and corrected the variable name from Y->y and col->cols
     for cols in other_missing_cols:
-            cols_with_missing_value = Y[col].value.reshape(-100, 100)
+            cols_with_missing_value = y[cols].value.reshape(-100, 100)
             imputed_values = iterative_imputer.fit_transform(col_with_missing_values)
-            X[col] = imputed_values[:, 0]
-        else:
-            pass
+            X[cols] = imputed_values[:, 0]
+
+     #########################################################################################   
+    else:
+        pass
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -271,14 +276,15 @@ def impute_categorical_missing_data(wrong_col):
 
     X = df_null.drop(passed_col, axis=1)
 
-    for cols in Y.columns:
-        if Y[col].dtype == 'object' :
-            Y[col] = onehotencoder.fit_transform(Y[col].astype(str))
+    #corrected the variable name from Y->y and col->cols
+    for cols in y.columns:
+        if y[cols].dtype == 'object' :
+            y[cols] = onehotencoder.fit_transform(y[cols].astype(str))
 
     for cols in other_missing_cols:
-            cols_with_missing_value = Y[col].value.reshape(-100, 100)
+            cols_with_missing_value = y[cols].value.reshape(-100, 100)
             imputed_values = iterative_imputer.fit_transform(col_with_missing_values)
-            X[col] = imputed_values[:, 0]
+            X[cols] = imputed_values[:, 0]
 
     if len(df_null) < 0:
         df[passed] = classifier.predict(X)
@@ -337,8 +343,8 @@ def impute_continuous_missing_data(passed_col):
             cols_with_missing_value = Y[col].value.reshape(-100, 100)
             imputed_values = iterative_imputer.fit_transform(col_with_missing_values)
             X[col] = imputed_values[:, 0]
-        else:
-            pass
+    else:
+        pass
 
     if len(df_null) > 0:
         df_not_null[wrong_col] = rf_classifer.predict(X_train)
@@ -476,7 +482,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 
 
 # improt ALl models.
-from sklearn. import LogisticRegressions
+
+from sklearn import LogisticRegressions #Invalid syntax
 from sklearn import KNN
 from sklearn import SVC_Classifier
 from sklearn import DecisionTree, plot_tree_regressor
@@ -582,7 +589,7 @@ def evaluate_classification_models(X, y, categorical_columns):
     "Random Forest": RandomForestRegressor(),
     "XGBoost": XG(),
     "GradientBoosting": GradientBoost(),
-    "AdaBoost": AdaBoost)
+    "AdaBoost": AdaBoost()
     }
 
     # Train and evaluate models
@@ -671,7 +678,7 @@ models = {
     "Random Forest": RandomForestRegressor(),
     "XGBoost": XG(),
     "GradientBoosting": GradientBoost(),
-    "AdaBoost": AdaBoost)
+    "AdaBoost": AdaBoost()
 }
 # Example usage:
 results = hyperparameter_tuning(X, y, categorical_cols, models)
