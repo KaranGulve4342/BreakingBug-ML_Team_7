@@ -1,4 +1,4 @@
-## ** Team 7 **
+## **Team 7**
 
 [SpreadSheet Link](https://docs.google.com/spreadsheets/d/1AymJnSjbPfx4RaaxEfG_2U0oJ0P7UmdMr1mrdagBTDw/edit?usp=sharing)
 
